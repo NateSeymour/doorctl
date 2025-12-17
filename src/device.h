@@ -10,7 +10,7 @@ typedef struct
 
 typedef enum
 {
-    ERROR_IRQ = SPARE_IRQ_0,
+    IRQ_ERROR_FATAL = SPARE_IRQ_0,
 } device_user_irq_t;
 
 extern device_state_t g_device_state;

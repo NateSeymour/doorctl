@@ -7,6 +7,12 @@ driver_state_t g_driver_state = {
 
 error_t driver_init()
 {
+    error_t error = {
+        .code = ERROR_ROUTINE_NOT_IMPLEMENTED,
+        .message = "Driver initialization is not implemented.",
+    };
+
+    return error;
 }
 
 error_t driver_autosense_angle(bool update_global, float *out_angle)
@@ -20,7 +26,7 @@ error_t driver_autosense_angle(bool update_global, float *out_angle)
     }
 
     error_t error = {
-        .code = ERR_ROUTINE_NOT_IMPLEMENTED,
+        .code = ERROR_ROUTINE_NOT_IMPLEMENTED,
         .message = "Driver position autosense is not implemented.",
     };
 

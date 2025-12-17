@@ -3,9 +3,9 @@
 
 typedef enum
 {
-    ERR_NONE = 0,
+    ERROR_OK = 0,
 
-    ERR_ROUTINE_NOT_IMPLEMENTED,
+    ERROR_ROUTINE_NOT_IMPLEMENTED,
 } error_code_t;
 
 typedef struct
@@ -16,7 +16,7 @@ typedef struct
 } error_t;
 
 constexpr error_t error_ok = {
-    .code = ERR_NONE,
+    .code = ERROR_OK,
 };
 extern error_t error_last_fatal;
 
@@ -25,11 +25,11 @@ extern error_t error_last_fatal;
  * @param error Error to inspect.
  * @return Pointer to error thrown or nullptr.
  */
-error_t const* error_thrown(error_t *error);
+error_t const* error_thrown(error_t const *error);
 
 /**
  * Triggers the fatal error handler (ERROR_IRQ) via interrupt after optionally setting the global error_last_fatal.
  */
-void error_fatal(error_t *error);
+void error_fatal(error_t const *error);
 
 #endif //DOORCTL_ERROR_H

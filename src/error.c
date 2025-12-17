@@ -4,9 +4,9 @@
 
 error_t error_last_fatal = error_ok;
 
-error_t const* error_thrown(error_t* error)
+error_t const* error_thrown(error_t const *error)
 {
-    if (error->code != ERR_NONE)
+    if (error && error->code != ERROR_OK)
     {
         return error;
     }
@@ -14,8 +14,12 @@ error_t const* error_thrown(error_t* error)
     return nullptr;
 }
 
-void error_fatal(error_t *error)
+void error_fatal(error_t const *error)
 {
-    error_last_fatal = *error;
-    irq_set_pending(ERROR_IRQ);
+    if (error)
+    {
+        error_last_fatal = *error;
+    }
+
+    irq_set_pending(IRQ_ERROR_FATAL);
 }
