@@ -35,4 +35,4 @@ jobs:
       - name: Deploy Functions
         run: |
           cd dist/api
-          for A in *.zip; do aws lambda update-function-code --function-name "${{ secrets.API_LAMBDA_PREFIX }}${A%.zip}" --zip-file fileb://"$A"; done
+          for A in *.zip; do aws lambda update-function-code --function-name "${{ secrets.API_LAMBDA_PREFIX }}-${A%.zip}" --zip-file fileb://"$A"; done
