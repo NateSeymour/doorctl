@@ -30,7 +30,7 @@ jobs:
       - name: Archive Functions
         run: |
           mkdir -p dist/api
-          for D in api/*; do [ -d "${D}" ] && (cd "${D}/dist" && zip -r "../../dist/${D}.zip" .); done
+          for D in api/*; do [ -d "${D}" ] && (cd "${D}" && zip -r "../../dist/${D}.zip" ./dist); done
 
       - name: Deploy Functions
         run: |
