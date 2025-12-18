@@ -10,6 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@types/node": "^25.0.3",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-kms": "^3.954.0"
   }
 }
