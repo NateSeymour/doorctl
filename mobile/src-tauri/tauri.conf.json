@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "mobile",
+  "productName": "doorctl",
   "version": "0.1.0",
   "identifier": "global.seymour.doorctl",
   "build": {
@@ -21,6 +21,17 @@
       "csp": null
     }
   },
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": ["doorctl"]
+      },
+      "mobile": [{
+        "scheme": ["doorctl"],
+        "appLink": false
+      }]
+    }
+  },
   "bundle": {
     "active": true,
     "targets": "all",
@@ -30,6 +41,9 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "android": {
+      "minSdkVersion": 26
+    }
   }
 }
