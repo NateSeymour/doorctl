@@ -2,14 +2,14 @@
   <main class="container">
     <CircleButton
         class="button"
-        :label="unlocked ? 'Unlocked' : 'Locked'"
-        :color="unlocked ? 'red' : 'green'"
-        @click="unlocked = !unlocked"
+        :label="isLocked ? 'Locked' : 'Unlocked'"
+        :color="isLocked ? 'green' : 'red'"
+        @click="isLocked = !isLocked"
     />
   </main>
 
   <footer>
-    <div class="connection-status">Status: {{ connected ? 'Connected' : 'Not Connected' }}</div>
+    <div class="connection-status">Status: {{ isConnected ? 'Connected' : 'Not Connected' }}</div>
   </footer>
 </template>
 
@@ -18,8 +18,10 @@ import {ref} from "vue";
 
 import CircleButton from "./component/CircleButton.vue";
 
-const connected = ref<boolean>(false);
-const unlocked = ref<boolean>(false);
+const isConnected = ref<boolean>(false);
+const isLocked = ref<boolean>(false);
+
+
 </script>
 
 <style scoped lang="scss">
