@@ -1,6 +1,8 @@
 <template>
-  <main class="container">
+  <header>
     <div v-if="isLoggedIn">Email: {{ identity.email }}</div>
+  </header>
+  <main class="container">
     <div v-if="isReady" class="locking-mechanism">
       <CircleButton
           class="button"
@@ -13,6 +15,9 @@
       <div v-for="_ in 3" class="dot"></div>
     </div>
   </main>
+  <footer>
+    <div>Connection Status: {{ isConnected ? "Connected" : "Not Connected" }}</div>
+  </footer>
 </template>
 
 <script setup lang="ts">
@@ -20,6 +25,7 @@ import {computed, onMounted, ref} from "vue";
 import {openUrl} from "@tauri-apps/plugin-opener";
 import {buildLoginUrl} from "./util/auth.ts";
 import {getCurrent} from "@tauri-apps/plugin-deep-link";
+import {LazyStore} from "@tauri-apps/plugin-store";
 
 import CircleButton from "./component/CircleButton.vue";
 
@@ -47,6 +53,11 @@ const isReady = computed(() => {
 const isLocked = ref<boolean>(false);
 
 onMounted(async () => {
+  const store = new LazyStore("auth.json");
+  token.value = await store.get<string>("token") || null;
+
+  if (isLoggedIn.value) return;
+
   // Check if callback from deeplink
   const startUrls = await getCurrent();
   if (startUrls) {
@@ -68,16 +79,16 @@ onMounted(async () => {
         if (response.ok) {
           const payload = await response.json();
 
+          await store.set("token", payload.id_token);
           token.value = payload.id_token;
+        } else {
+          console.error(response);
+
         }
       }
     }
   }
-  // Check if user credentials are stored
-  // IF YES
-  // - Start pinging for access tokens
-  // IF NO
-  // - Redirect to login page
+
   if (!isLoggedIn.value) {
     const loginUrl = buildLoginUrl({
       authority: import.meta.env.VITE_AUTH_AUTHORITY,
@@ -92,17 +103,58 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+header {
+  padding: 1em;
+}
+
 .container {
-  height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
 
   .button {
-    width: 10em;
-    height: 10em;
+    width: 70vw;
+    height: 70vw;
   }
+
+  .loading {
+    width: 70vw;
+    height: 70vw;
+    border-radius: 100%;
+    border: 2px solid white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+
+    .dot {
+      width: 2em;
+      height: 2em;
+      background: white;
+      border-radius: 100%;
+      animation: dot-loading-anim 500ms ease-in-out alternate infinite;
+    }
+
+    @for $i from 1 through 3 {
+      :nth-child(#{$i}n) {
+        animation-delay: #{$i * 100}ms;
+      }
+    }
+    
+    @keyframes dot-loading-anim {
+      from {
+        transform: scaleY(0.5);
+      }
+
+      to {
+        transform: scaleY(1.5);
+      }
+    }
+  }
+}
+
+footer {
+  padding: 1em;
 }
 </style>
