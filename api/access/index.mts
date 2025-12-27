@@ -39,7 +39,7 @@ export const handler = async (event: LambdaEvent) => {
     const identity = event.requestContext.identity;
     const isResident = identity["cognito:groups"]?.includes('Resident');
     if (!isResident) {
-      return response(503, { error: 'User is unauthorized to perform action.' });
+      return response(403, { error: 'User is unauthorized to perform action.' });
     }
 
     const command = `authorized@${Date.now()}`;
@@ -50,7 +50,7 @@ export const handler = async (event: LambdaEvent) => {
     }));
 
     if (!signature) {
-      return response(503, { error: 'Failed to get signature from KMS.' });
+      return response(500, { error: 'Failed to get signature from KMS.' });
     }
 
     return response(200, { token: `${command}@${Buffer.from(signature).toString('base64')}` });
