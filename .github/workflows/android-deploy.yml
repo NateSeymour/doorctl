@@ -53,7 +53,7 @@ jobs:
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1.5.0
         with:
-          ndk-version: r36d
+          ndk-version: r36
           link-to-sdk: true
 
       # 'mobile' is only available on dev branch currently (!!!)
