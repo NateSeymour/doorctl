@@ -37,8 +37,8 @@ jobs:
         with:
           workspaces: './mobile/src-tauri -> target'
 
-      - name: install frontend dependencies
-        run: pnpm install
+      - name: Install Frontend Dependencies
+        run: npm ci
         working-directory: mobile
 
       - uses: tauri-apps/tauri-action@v0
