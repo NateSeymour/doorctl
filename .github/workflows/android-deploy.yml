@@ -43,7 +43,7 @@ jobs:
         working-directory: mobile
 
       - name: Build APKs
-        run: npm run tauri android build
+        run: npm run tauri android build --debug
         working-directory: mobile
 
       - name: Release
