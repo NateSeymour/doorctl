@@ -23,10 +23,13 @@ add_executable(doorctl
         src/pka.in.h
         src/mbedtls_config.h
         src/btstack_config.h
+        src/ble.c
+        src/ble.h
+        src/lwipopts.h
 )
 target_link_libraries(doorctl
         pico_stdlib
-        pico_async_context_threadsafe_background
+        pico_async_context_poll
         pico_btstack_ble
         pico_btstack_cyw43
         pico_cyw43_arch_none

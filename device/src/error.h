@@ -5,6 +5,8 @@ typedef enum
 {
     ERROR_OK = 0,
 
+    ERROR_CHIPSET_CONTROL,
+
     ERROR_ROUTINE_NOT_IMPLEMENTED,
 } error_code_t;
 
