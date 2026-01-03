@@ -2,6 +2,11 @@
 #include "pico/stdlib.h"
 #include "device.h"
 
+error_t const error_ok = {
+    .code = ERROR_OK,
+    .message = "Operation Successful",
+};
+
 error_t error_last_fatal = error_ok;
 
 error_t const* error_thrown(error_t const *error)

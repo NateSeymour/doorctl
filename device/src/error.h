@@ -17,9 +17,7 @@ typedef struct
     void *data;
 } error_t;
 
-constexpr error_t error_ok = {
-    .code = ERROR_OK,
-};
+extern error_t const error_ok;
 extern error_t error_last_fatal;
 
 /**

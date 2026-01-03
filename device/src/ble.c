@@ -8,6 +8,7 @@
 #include "pico/btstack_cyw43.h"
 #include "doorctl.h"
 #include "pico/cyw43_arch.h"
+#include "device.h"
 
 static int le_notification_enabled;
 static btstack_packet_callback_registration_t hci_event_handler;
@@ -63,6 +64,8 @@ error_t ble_init()
         };
         return error;
     }
+
+    g_device_state.ble_initialized = true;
 
     return error_ok;
 }

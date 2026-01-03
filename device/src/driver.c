@@ -1,4 +1,5 @@
 #include "driver.h"
+#include "device.h"
 
 driver_state_t g_driver_state = {
     .step_index = 0,
@@ -11,8 +12,12 @@ error_t driver_init()
         .code = ERROR_ROUTINE_NOT_IMPLEMENTED,
         .message = "Driver initialization is not implemented.",
     };
-
     return error;
+
+    // TODO: implement
+    g_device_state.driver_initialized = true;
+
+    return error_ok;
 }
 
 error_t driver_autosense_angle(bool update_global, float *out_angle)

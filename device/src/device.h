@@ -6,6 +6,8 @@
 
 typedef struct
 {
+    bool ble_initialized;
+    bool driver_initialized;
 } device_state_t;
 
 typedef enum
