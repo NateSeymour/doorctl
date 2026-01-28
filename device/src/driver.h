@@ -24,9 +24,8 @@ typedef enum
     ON,
 } driver_power_state_t;
 
-constexpr uint8_t k_driver_pin_map[] = {
-
-};
+constexpr uint8_t k_driver_pins[] = { 2, 3, 4, 5 };
+constexpr uint8_t k_driver_pin_count = 4;
 
 /**
  * Driver follows an 8 step motor driving pattern.
@@ -45,7 +44,7 @@ constexpr uint8_t k_driver_steps[] = {
 };
 constexpr uint8_t k_driver_step_count = 8;
 
-constexpr uint32_t k_driver_steps_per_degree = 1000; // TODO: correct value
+constexpr uint32_t k_driver_steps_per_rotation = 4096;
 
 error_t driver_set_power(driver_power_state_t power_state);
 

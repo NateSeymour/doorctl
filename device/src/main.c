@@ -33,14 +33,14 @@
         }
 
         cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, true);
-        busy_wait_ms(5000);
+        busy_wait_ms(2000);
 
         for(error_code_t i = error_last_fatal.code; i > 0; i--)
         {
             cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, false);
-            busy_wait_ms(1000);
+            busy_wait_ms(100);
             cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, true);
-            busy_wait_ms(500);
+            busy_wait_ms(200);
         }
     }
 }
@@ -62,9 +62,9 @@ void initialize_component(error_t (*init_fn)(void))
     irq_set_enabled(IRQ_ERROR_FATAL, true);
 
     // Initialize components
-    //initialize_component(crypto_init);
-    initialize_component(driver_init);
     initialize_component(ble_init);
+    initialize_component(driver_init);
+    initialize_component(crypto_init);
 
     btstack_run_loop_execute();
 

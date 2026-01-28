@@ -23,9 +23,16 @@ error_t driver_step(driver_direction_t direction)
         return error;
     }
 
+    for (uint8_t i = 0; i < k_driver_pin_count; i++)
+    {
+        gpio_put(k_driver_pins[i], 0x1 & (k_driver_steps[g_driver_state.step_index] >> i));
+    }
 
+    sleep_ms(1);
 
-    g_driver_state.step_index = (g_driver_state.step_index + 1) % k_driver_step_count;
+    gpio_put_all(OFF);
+
+    g_driver_state.step_index = (g_driver_state.step_index + 1 * direction) % k_driver_step_count;
 
     return error_ok;
 }
@@ -54,13 +61,13 @@ error_t driver_autosense_angle(bool update_global, float *out_angle)
 
 error_t driver_init()
 {
-    error_t error = {
-        .code = ERROR_ROUTINE_NOT_IMPLEMENTED,
-        .message = "Driver initialization is not implemented.",
-    };
-    return error;
+    for (uint8_t i = 0; i < k_driver_pin_count; i++)
+    {
+        gpio_init(k_driver_pins[i]);
+        gpio_set_dir(k_driver_pins[i], true);
+        gpio_set_irq_enabled(k_driver_pins[i], 0b1111, false);
+    }
 
-    // TODO: implement
     g_device_state.driver_initialized = true;
 
     return error_ok;
