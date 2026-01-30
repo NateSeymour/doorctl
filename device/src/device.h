@@ -3,9 +3,16 @@
 
 #include <stdint.h>
 #include "pico/stdlib.h"
+#include "error.h"
 
 #define DOORCTL_MAX_CONCURRENT_CONNECTIONS 3
 #define DOORCTL_AUTHORIZATION_TOKEN_LENGTH 256
+
+typedef enum
+{
+    UNLOCKED,
+    LOCKED,
+} device_lock_state_t;
 
 typedef struct
 {
@@ -22,5 +29,9 @@ typedef enum
 } device_user_irq_t;
 
 extern device_state_t g_device_state;
+
+device_lock_state_t device_get_lock_state();
+
+error_t device_set_lock_state(device_lock_state_t lock_state);
 
 #endif //DOORCTL_DEVICE_H

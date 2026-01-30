@@ -78,6 +78,8 @@ error_t driver_reset_position();
  */
 error_t driver_set_angle_deg(float angle);
 
+float driver_get_angle_deg();
+
 /**
  * Interrupt handler for driver movement.
  */

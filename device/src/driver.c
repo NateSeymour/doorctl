@@ -85,6 +85,11 @@ error_t driver_set_angle_deg(float angle)
     return error_ok;
 }
 
+float driver_get_angle_deg()
+{
+    return (float)g_driver_state.angle / (float)k_driver_steps_per_rotation * 360.f;
+}
+
 void driver_rotate_handler()
 {
     driver_set_power_state(ON);
