@@ -31,6 +31,7 @@ add_executable(doorctl
         src/ble.h
         src/lwipopts.h
         src/mathutil.h
+        src/splash.s
 )
 target_link_libraries(doorctl
         pico_stdlib
@@ -41,6 +42,7 @@ target_link_libraries(doorctl
         pico_btstack_cyw43
         pico_cyw43_arch_none
         pico_mbedtls
+        pico_multicore
 )
 target_include_directories(doorctl PUBLIC src ${CMAKE_BINARY_DIR})
 pico_btstack_make_gatt_header(doorctl PUBLIC ${CMAKE_SOURCE_DIR}/src/doorctl.gatt)
